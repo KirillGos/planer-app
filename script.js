@@ -173,7 +173,7 @@ itemList.previousElementSibling.style.color = 'yellows';
 //Create elements methods and properties
 
 //createElement//
-
+/*
 //create a div
 const newDiv = document.createElement('div');
 
@@ -201,3 +201,12 @@ const h1 = document.querySelector('header h1');
 container.insertBefore(newDiv, h1);
 
 newDiv.style.fontSize  = '25px';
+*/
+let button = document.querySelector('.styleMe');
+button.addEventListener('click', clickButton);
+
+function clickButton(e) {
+    document.getElementById('header-title').textContent = 'Changed';
+    console.log('it works');
+    document.querySelector('#main').style.backgroundColor = 'blue';
+}
