@@ -202,11 +202,109 @@ container.insertBefore(newDiv, h1);
 
 newDiv.style.fontSize  = '25px';
 */
-let button = document.querySelector('.styleMe');
-button.addEventListener('click', clickButton);
 
-function clickButton(e) {
-    document.getElementById('header-title').textContent = 'Changed';
-    console.log('it works');
-    document.querySelector('#main').style.backgroundColor = 'blue';
+//Events
+///let button = document.getElementById('button');
+//button.addEventListener('click', buttonClick);
+
+//function buttonClick(event) {
+  //console.log('Button Clicked!');
+  //  document.getElementById('header-title').textContent = 'Changed!';
+  //  document.querySelector('#main').style.backgroundColor = 'blue';
+  //console.log(event);
+  /*console.log(event.target);
+  console.log(event.target.id);
+  console.log(event.target.className)*/
+  //console.log(event.type);
+
+  //console.log(event.clientX);
+   //console.log(event.clientY);
+   //console.log(event.offsetY);
+  // console.log(event.offsetX);
+  //console.log(event.ctrlKey);
+ // console.log(event.altKey);
+ // console.log(event.shiftKey);
+//}
+
+
+const box = document.getElementById('box');
+
+//box.addEventListener('mouseout', runEvent);
+
+document.body.addEventListener('mousemove', runEvent);
+function runEvent(event) {
+    //console.log('EVENT TYPE: ' +event.type);
+    const output = document.getElementById('output');
+   // output.innerHTML = '<h2>MouseX: ' +event.offsetX+ '</h2><h2>MouseY: '+event.offsetY+ '</h2>';
+    document.body.style.backgroundColor = "rgba("+event.offsetX+", "+event.offsetY+", 150)";
+}
+//MAin Action
+const form = document.getElementById('addForm');
+const itemList = document.getElementById('items');
+const filter = document.querySelector('#filter');
+
+//Filter Event
+filter.addEventListener('keyup', filterItems);
+
+
+//Delete event
+itemList.addEventListener('click', removeItem);
+function removeItem(e) {
+    if(e.target.classList.contains('delete')) {
+      let li = e.target.parentElement;
+        itemList.removeChild(li);
+    }
+}
+
+
+//Forms submit event
+form.addEventListener('submit', addItem);
+//Add Item
+function addItem(e) {
+    e.preventDefault();
+    //get input value
+    const newItem = document.getElementById('item').value;
+
+    //create new li element
+    const li = document.createElement('li');
+
+    //Add class
+    li.className = 'list-group-item';
+   
+    //Add text node with input value
+    li.appendChild(document.createTextNode(newItem));
+
+    //Create delete button
+    const deleteBtn = document.createElement('button');
+
+    //Add classes to delete button
+    deleteBtn.className = "btn btn-danger btn-sm float-right delete";
+
+    //Append Text Node
+    deleteBtn.appendChild(document.createTextNode("X"));
+
+    //Append button to li
+    li.appendChild(deleteBtn);
+
+    //Append button to li
+    itemList.appendChild(li);
+}
+
+
+//filter items
+
+function filterItems(e) {
+    // convert to lower case
+    const text = e.target.value.toLowerCase();
+    //Get li's
+    const items = itemList.getElementsByTagName('li');
+    //Convert to an array
+    Array.from(items).forEach(function(item){
+        let itemName = item.firstChild.textContent;
+        if(itemName.toLowerCase().indexOf(text) != -1) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    }); 
 }
